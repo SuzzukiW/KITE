@@ -102,6 +102,6 @@ The `biokite` package is released under the MIT License. See the `LICENSE` file 
 
 For questions, suggestions, or collaborations, please contact the package maintainer:
 
-Xiang Fu
-xfu@bu.edu
-Boston University Faculty of Computing and Data Sciences
+- Xiang Fu
+- xfu@bu.edu
+- Boston University Faculty of Computing and Data Sciences
