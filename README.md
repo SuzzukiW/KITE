@@ -90,6 +90,25 @@ SNP1,SNP2,SNP3,...,SNPn,Phenotype
 ...
 ```
 
+## Roadmap
+
+The biokite package currently supports the following features:
+- [x] Kernel-based epistasis detection using Kernel PCA and Kernel Ridge Regression
+- [x] Neural network-based epistasis detection using the EpistasisDetector class
+- [x] Preprocessing of genotype data, including missing value imputation and one-hot encoding
+- [x] Command-line interface for running epistasis detection algorithms
+
+We are actively working on adding the following features:
+- [ ] Cross-validation and model selection techniques for kernel selection and hyperparameter tuning
+- [ ] Support for additional genotype encoding schemes, such as orthogonal polynomial coding and haplotype-based encodings
+- [ ] Implementation of string kernels and graph kernels to capture complex genotype relationships
+- [ ] Incorporation of prior biological knowledge into the kernel design
+- [ ] Additional dimensionality reduction techniques, such as kernel CCA and kernel ICA
+- [ ] Visualization tools for interpreting the results of epistasis detection
+- [ ] Integration with popular bioinformatics libraries, such as BioPython and Scanpy
+
+Please stay tuned for updates and new releases of the `biokite` package!
+
 ## Contributing
 
 Contributions to the `biokite` package are welcome! If you find a bug, have a feature request, or want to contribute code, please open an issue or submit a pull request on the GitHub repository.
