@@ -1,0 +1,10 @@
+setup.py
+biokite/__init__.py
+biokite/cli.py
+biokite/detector.py
+biokite.egg-info/PKG-INFO
+biokite.egg-info/SOURCES.txt
+biokite.egg-info/dependency_links.txt
+biokite.egg-info/entry_points.txt
+biokite.egg-info/requires.txt
+biokite.egg-info/top_level.txt

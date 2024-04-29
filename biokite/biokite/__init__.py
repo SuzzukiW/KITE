@@ -1,0 +1,1 @@
+from .detector import EpistasisDataset, EpistasisDetector, train, evaluate

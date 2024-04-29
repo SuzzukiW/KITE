@@ -1,0 +1,9 @@
+Metadata-Version: 2.1
+Name: biokite
+Version: 0.1.0
+Summary: A package for detecting epistatic interactions using PyTorch
+Author: Xiang Fu
+Author-email: xfu@bu.edu
+Requires-Dist: torch
+Requires-Dist: numpy
+Requires-Dist: scikit-learn
