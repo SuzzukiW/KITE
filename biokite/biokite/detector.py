@@ -1,3 +1,5 @@
+"""detector.py"""
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -115,13 +117,95 @@ class KITEDetector:
 def compute_kernel_matrix(X, kernel='rbf', gamma=None):
     return pairwise_kernels(X, metric=kernel, gamma=gamma)
 
-def preprocess_genotype_data(X):
+def preprocess_genotype_data(X, encoding='onehot'):
     # Impute missing values
     imputer = SimpleImputer(strategy='mean')
     X_imputed = imputer.fit_transform(X)
 
-    # One-hot encode categorical variables
-    encoder = OneHotEncoder(handle_unknown='ignore')
-    X_encoded = encoder.fit_transform(X_imputed).toarray()
+    # Encode genotypes
+    X_encoded = encode_genotypes(X_imputed, encoding)
 
     return X_encoded
+
+def encode_genotypes(X, encoding='onehot'):
+    if encoding == 'onehot':
+        encoder = OneHotEncoder(handle_unknown='ignore')
+        X_encoded = encoder.fit_transform(X).toarray()
+    elif encoding == 'polynomial':
+        X_encoded = orthogonal_polynomial_encoding(X)
+    elif encoding == 'haplotype':
+        X_encoded = haplotype_encoding(X)
+    else:
+        raise ValueError(f"Unknown encoding scheme: {encoding}")
+    return X_encoded
+
+def orthogonal_polynomial_encoding(X):
+    # Implement orthogonal polynomial encoding
+    X_encoded = X ** 2  # Replace with actual implementation
+    return X_encoded
+
+def haplotype_encoding(X):
+    # Implement haplotype-based encoding
+    X_encoded = np.sum(X, axis=1, keepdims=True)  # Replace with actual implementation
+    return X_encoded
+
+def select_best_kernel(X, y, kernels, param_grid):
+    kite_detector = KITEDetector()
+    grid_search = GridSearchCV(kite_detector, param_grid, cv=5, scoring='r2')
+    grid_search.fit(X, y)
+    return grid_search.best_params_
+
+def string_kernel(X, Y=None, k=3):
+    # Implement string kernel
+    if Y is None:
+        Y = X
+    kernel_matrix = np.zeros((X.shape[0], Y.shape[0]))
+    for i in range(X.shape[0]):
+        for j in range(Y.shape[0]):
+            kernel_matrix[i, j] = np.sum(X[i] == Y[j])
+    return kernel_matrix
+
+def graph_kernel(X, Y=None):
+    # Implement graph kernel
+    if Y is None:
+        Y = X
+    kernel_matrix = np.zeros((X.shape[0], Y.shape[0]))
+    for i in range(X.shape[0]):
+        for j in range(Y.shape[0]):
+            kernel_matrix[i, j] = np.dot(X[i], Y[j])
+    return kernel_matrix
+
+def incorporate_prior_knowledge(X, ontology_file, ppi_file):
+    # Implement methods to incorporate prior biological knowledge
+    X_ppi = np.loadtxt(ppi_file)
+    X_ontology = np.loadtxt(ontology_file)
+    X_prior = np.concatenate((X, X_ppi, X_ontology), axis=1)
+    return X_prior
+
+def kernel_cca(X, Y, n_components=10, kernel='rbf', gamma=None):
+    # Implement kernel CCA
+    K_X = compute_kernel_matrix(X, kernel=kernel, gamma=gamma)
+    K_Y = compute_kernel_matrix(Y, kernel=kernel, gamma=gamma)
+    K_XY = np.dot(K_X, K_Y)
+    evals, evecs = eigh(K_XY, eigvals=(K_XY.shape[0] - n_components, K_XY.shape[0] - 1))
+    return evecs[:, ::-1]
+
+def kernel_ica(X, n_components=10, kernel='rbf', gamma=None):
+    # Implement kernel ICA
+    K = compute_kernel_matrix(X, kernel=kernel, gamma=gamma)
+    W = np.random.rand(K.shape[1], n_components)
+    for _ in range(100):
+        W = np.linalg.inv(np.dot(W.T, W)) @ W.T @ K
+    return np.dot(K, W)
+
+def visualize_top_interactions(X, y, kite_detector, top_k=10):
+    # Implement visualization of top epistatic interactions
+    import matplotlib.pyplot as plt
+    importances = np.abs(kite_detector.krr.coef_)
+    top_indices = np.argsort(importances)[-top_k:]
+    plt.figure(figsize=(8, 6))
+    plt.bar(range(top_k), importances[top_indices])
+    plt.xlabel('Interaction Index')
+    plt.ylabel('Importance')
+    plt.title('Top {} Epistatic Interactions'.format(top_k))
+    plt.show()
