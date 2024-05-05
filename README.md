@@ -140,6 +140,41 @@ We are actively working on adding the following features:
 - [ ] Additional dimensionality reduction techniques, such as kernel CCA and kernel ICA
 - [ ] Visualization tools for interpreting the results of epistasis detection
 - [ ] Integration with popular bioinformatics libraries, such as BioPython and Scanpy
+  
+  Here's an updated Roadmap section with more Rust-related features and ideas:
+
+## Roadmap
+
+The biokite package currently supports the following features:
+- [x] Kernel-based epistasis detection using Kernel PCA and Kernel Ridge Regression
+- [x] Neural network-based epistasis detection using the EpistasisDetector class
+- [x] Preprocessing of genotype data, including missing value imputation and one-hot encoding
+- [x] Command-line interface for running epistasis detection algorithms
+
+We are actively working on adding the following features:
+- [ ] Cross-validation and model selection techniques for kernel selection and hyperparameter tuning
+- [ ] Support for additional genotype encoding schemes, such as orthogonal polynomial coding and haplotype-based encodings
+- [ ] Implementation of string kernels and graph kernels to capture complex genotype relationships
+- [ ] Incorporation of prior biological knowledge into the kernel design
+- [ ] Additional dimensionality reduction techniques, such as kernel CCA and kernel ICA
+- [ ] Visualization tools for interpreting the results of epistasis detection
+- [ ] Integration with popular bioinformatics libraries, such as BioPython and Scanpy
+
+We are also planning to use Rust for performance-critical components and computationally intensive tasks in the future. The Python version of biokite will continue to be maintained and updated in parallel with our Rust development efforts.
+
+Rust-related todos:
+- [ ] Implement the core algorithms (Kernel PCA, Kernel Ridge Regression) in Rust
+- [ ] Develop Rust-based utilities for data preprocessing and feature encoding
+- [ ] Create Rust bindings for the Python package to enable seamless integration
+- [ ] Benchmark the performance of the Rust implementation against the Python version!
+- [ ] Explore the use of Rust's parallel and concurrent programming features to further optimize performance
+- [ ] Implement Rust-based file parsers for common bioinformatics file formats (e.g., FASTA, FASTQ, VCF)
+- [ ] Develop a Rust library for efficient computation of various genetic distance measures
+- [ ] Investigate the use of Rust's SIMD (Single Instruction Multiple Data) capabilities for accelerating numerical computations
+- [ ] Create a Rust-based framework for distributed computing in bioinformatics, leveraging Rust's strong concurrency primitives
+- [ ] Explore the integration of Rust with big data processing frameworks like Apache Spark or Apache Arrow for handling large-scale genomic datasets
+- [ ] Develop a Rust-based server for hosting RESTful APIs for bioinformatics tools and services
+- [ ] Investigate the use of Rust's WebAssembly (WASM) support for building interactive web-based visualizations of epistatic interactions and QTL analysis results
 
 Please stay tuned for updates and new releases of the `biokite` package!
 
