@@ -2,6 +2,10 @@
 
 KITE is a Python package for detecting epistatic interactions in quantitative trait loci (QTL) data using kernel-based methods. The package provides a user-friendly framework for identifying non-linear interactions between genetic variants that influence complex traits.
 
+## Proposal
+
+You can view the detailed proposal for the KITE project [here](https://repo.fufoundation.co/Research/KITE.pdf).
+
 ## Features
 
 - Kernel-based approach for capturing non-linear interactions between genotypes
@@ -89,6 +93,36 @@ SNP1,SNP2,SNP3,...,SNPn,Phenotype
 2,1,0,0,1,0.8
 ...
 ```
+
+## Terminology
+
+- QTL: Quantitative Trait Locus, a region of the genome that is associated with a particular quantitative trait.
+- Epistasis: The interaction between two or more genes that affects a phenotype.
+- Kernel: A function that measures the similarity between pairs of data points in a high-dimensional space.
+- KPCA: Kernel Principal Component Analysis, a non-linear dimensionality reduction technique.
+- KRR: Kernel Ridge Regression, a regression method that uses a kernel function to capture non-linear relationships.
+
+## API Design
+
+The `biokite` package provides a high-level API for detecting epistatic interactions in QTL data. The main components of the API are:
+
+- `KITEDetector`: A class that implements the kernel-based approach for epistasis detection using KPCA and KRR.
+  - `__init__(n_components, kernel, alpha, gamma)`: Initializes the KITEDetector with the specified hyperparameters.
+  - `fit(X, y)`: Fits the KITEDetector to the input data X and labels y.
+  - `predict(X)`: Predicts the output for the input data X using the trained KITEDetector.
+  - `score(X, y)`: Computes the R-squared score for the input data X and labels y.
+
+- `EpistasisDetector`: A class that implements a neural network-based approach for epistasis detection.
+  - `__init__(input_dim, hidden_dims, output_dim, dropout_rate)`: Initializes the EpistasisDetector with the specified architecture.
+  - `forward(x)`: Performs a forward pass through the neural network.
+
+- `run_epistasis_detector(X, y, hidden_dims, dropout_rate, learning_rate, batch_size, num_epochs, device)`: Trains and evaluates the EpistasisDetector on the input data X and labels y.
+
+- `preprocess_genotype_data(X, encoding)`: Preprocesses the genotype data X using the specified encoding scheme.
+
+- `select_best_kernel(X, y, kernels, param_grid)`: Selects the best kernel function and hyperparameters using grid search and cross-validation.
+
+- `visualize_top_interactions(X, y, kite_detector, top_k)`: Visualizes the top k epistatic interactions identified by the KITEDetector.
 
 ## Roadmap
 
